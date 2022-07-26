@@ -21,9 +21,9 @@ export default StyleSheet.create({
       fontSize: 32,
       marginBottom: 10,
     },
-    container: {
+    container: { //används typ som en div i mitt fall för varje element på sidan
       flex: 1,
-      //marginTop: 15,
+      marginTop: 30,
     },
     base: {
       flex: 1,
