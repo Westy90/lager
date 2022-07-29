@@ -1,29 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
-import Stock from './components/Stock';
-import styles from './components/styles';
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Home from "./components/Stock";
+import Pick from "./components/Pick";
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import { Base, Typo } from "./styles/index.js";
+
+
+const Tab = createBottomTabNavigator();
+
+const routeIcons = {
+  "Lager": "home",
+  "Plock": "list",
+};
 
 export default function App() {
   return (
+    <SafeAreaView style={Base.container}>
 
-    <View style={styles.base}>
 
-      <View style={styles.dummyTop}>
+      <NavigationContainer>
 
-      </View>
 
-      <ScrollView>
+      <Tab.Navigator screenOptions={({ route }) => ({
+    tabBarIcon: ({ focused, color, size }) => {
 
-      <View style={styles.container}>
-        <Text style={styles.header}>Lager-Appen</Text>
-        <Image source={require('./assets/warehouse.jpg')} style={{ width: 320, height: 240 }} />
-      </View>
-        <Stock />
-        <StatusBar style="auto" />
 
-      </ScrollView>
+      let iconName = routeIcons[route.name] || "alert";
 
-    </View>
+      return <Ionicons name={iconName} size={size} color={color} />;
+    },
+    tabBarActiveTintColor: 'blue',
+    tabBarInactiveTintColor: 'gray',
+  })}
+>
+  <Tab.Screen name="Lager" component={Home} />
+  <Tab.Screen name="Plock" component={Pick} />
+</Tab.Navigator>
+
+      </NavigationContainer>
+      <StatusBar style="auto" />
+    </SafeAreaView>
   );
 }
 

@@ -1,11 +1,32 @@
 import { StyleSheet } from 'react-native';
+//Typography.
 
+export const header1 = {
+  color: "#C0392B",
+  fontSize: 42,
+  marginBottom: 21,
+};
 
+export const header2 = {
+  color: "#C0392B",
+  fontSize: 36,
+  marginBottom: 18,
+};
+
+export const header3 = {
+  color: "#C0392B",
+  fontSize: 28,
+  marginBottom: 14,
+};
+
+export const normal = {
+  color: '#D35400',
+  fontSize: 20,
+  marginBottom: 10,
+};
+
+/*
 export default StyleSheet.create({
-    dummyTop: {
-      height: 50,
-      backgroundColor: 'powderblue'
-    },
     header: {
       color: "#C0392B",
       fontSize:42,
@@ -21,14 +42,5 @@ export default StyleSheet.create({
       fontSize: 32,
       marginBottom: 10,
     },
-    container: { //används typ som en div i mitt fall för varje element på sidan
-      flex: 1,
-      marginTop: 30,
-    },
-    base: {
-      flex: 1,
-      backgroundColor: '#fff',
-      paddingLeft: 12,
-      paddingRight: 12,
-    }
 });
+*/
