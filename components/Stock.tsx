@@ -2,18 +2,45 @@ import { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import config from "../config/config.json";
 import { Base, Typo } from "../styles/index";
+import productModel from "../models/products"
 
 
-function StockList() {
-  const [products, setProducts] = useState([]);
+
+function StockList({products, setProducts}) {
+
 
   useEffect(() => {
-    fetch(`${config.base_url}/products?api_key=${config.api_key}`)
-      .then(response => response.json())
-      .then(result => setProducts(result.data));
+    async function fetchData() {
+      setProducts(await productModel.getProducts());
+    }
+    fetchData();
   }, []);
 
-  const list = products.map((product, index) => <Text key={index} style={Typo.normal}>{ product.name } - { product.stock }</Text>);
+  /*
+const { reload } = route.params || false;
+
+  if (reload) {
+    reloadProductsList();
+}
+
+async function reloadProductsList() {
+    setProducts(await productModel.getProducts());
+}
+
+useEffect(() => {
+    reloadProductsList();
+}, []);
+*/
+
+
+  const list = products.map((product, index) => {
+    return <Text
+            key={index}
+            style={{ ...Typo.normal }}
+            >
+              { product.name }   |   { product.stock }
+            </Text>
+  });
 
   return (
     <View>
@@ -22,11 +49,11 @@ function StockList() {
   );
 }
 
-export default function Stock() {
+export default function Stock({products, setProducts}) {
   return (
     <View style={Base.container}>
       <Text style={Typo.header3}>Lagerförteckning</Text>
-      <StockList/>
+      <StockList products={products} setProducts={setProducts} />
     </View>
   );
 }

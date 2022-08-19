@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Home from "./components/Stock";
+import Home from "./components/Home";
 import Pick from "./components/Pick";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,13 +12,18 @@ import { Base, Typo } from "./styles/index.js";
 
 const Tab = createBottomTabNavigator();
 
+
 const routeIcons = {
   "Lager": "home",
   "Plock": "list",
 };
 
 export default function App() {
+
+  const [products, setProducts] = useState([]);
+
   return (
+
     <SafeAreaView style={Base.container}>
 
 
@@ -34,11 +40,22 @@ export default function App() {
     },
     tabBarActiveTintColor: 'blue',
     tabBarInactiveTintColor: 'gray',
-  })}
->
-  <Tab.Screen name="Lager" component={Home} />
-  <Tab.Screen name="Plock" component={Pick} />
-</Tab.Navigator>
+      })}
+    >
+
+
+
+      <Tab.Screen name="Lager">
+            {() => <Home products={products} setProducts={setProducts} />}
+      </Tab.Screen>
+
+      <Tab.Screen name="Plock">
+            {() => <Pick products={products} setProducts={setProducts} />}
+      </Tab.Screen>
+
+
+
+        </Tab.Navigator>
 
       </NavigationContainer>
       <StatusBar style="auto" />

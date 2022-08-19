@@ -1,27 +1,25 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useState, useEffect } from 'react';
 
 import OrderList from './OrderList.tsx';
 import PickList from './PickList.tsx';
 
 const Stack = createNativeStackNavigator();
 
-export default function Pick() {
+
+export default function Pick(props) {
     return (
         <Stack.Navigator initialRouteName="List">
-            <Stack.Screen name="List" component={OrderList} />
-            <Stack.Screen name="Details" component={PickList} />
+
+            <Stack.Screen name="List">
+                {(screenProps) => <OrderList {...screenProps} setProducts={props.setProducts} />}
+            </Stack.Screen>
+            <Stack.Screen name="Details">
+                {(screenProps) => <PickList {...screenProps} setProducts={props.setProducts} />}
+            </Stack.Screen>
         </Stack.Navigator>
     );
 }
 
 
-/*
-import { Text, View } from 'react-native';
-
-export default function Pick() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Plocklista</Text>
-        </View>
-    );
-}*/
+//            <Stack.Screen name="List" component={OrderList} />
