@@ -72,10 +72,35 @@ const productModel = {
         const result = await response.json()
 
         return result.data;
+    },
 
-        //GET /v2/products/:product_id?api_key=[YOUR_API_KEY]
-    }
-    // Add order?
+    updateProduct: async function updateProduct(product: Partial<Product>) {
+
+        function callBackFunction() {
+            console.log("====== product has been added to stock ======")
+        }
+
+        var productUpdate = {
+            id: product.id,
+            name: product.name,
+            stock: product.stock,
+            api_key: config.api_key,
+        };
+
+        console.log(product);
+        console.log(productUpdate);
+
+        var json = JSON.stringify(productUpdate);
+
+        var request = new XMLHttpRequest();
+
+        request.addEventListener("load", callBackFunction);
+        request.open("PUT", "https://lager.emilfolino.se/v2/products");
+        request.setRequestHeader('Content-type','application/json; charset=utf-8');
+        request.send(json);
+
+    },
+
 };
 
 export default productModel;

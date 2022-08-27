@@ -25,6 +25,12 @@ export const normal = {
   marginBottom: 10,
 };
 
+export const label = {
+  color: '#D35400',
+  fontSize: 16,
+  marginBottom: 10,
+};
+
 /*
 export default StyleSheet.create({
     header: {

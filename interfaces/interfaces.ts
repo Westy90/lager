@@ -15,6 +15,7 @@ export interface Order {
 
 export interface OrderItem {
     product_id: number,
+    id: number,
     amount: number,
     article_number: string,
     name: string,
@@ -30,4 +31,14 @@ export interface Specifiers {
     length: string
     width: string
     diameter: string
+}
+
+
+
+export interface Delivery {
+    product_id: number,
+    product_name: string,
+    amount: number,
+    delivery_date: string,
+    comment: string,
 }

@@ -1,3 +1,3 @@
-import { Order, OrderItem } from './interfaces';
+import { Order, OrderItem, Delivery } from './interfaces';
 
-export { Order, OrderItem };
+export { Order, OrderItem, Delivery };

@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Base, Typo } from "./styles/index.js";
+import Deliveries from "./components/Deliveries";
 
 
 const Tab = createBottomTabNavigator();
@@ -16,6 +17,7 @@ const Tab = createBottomTabNavigator();
 const routeIcons = {
   "Lager": "home",
   "Plock": "list",
+  "Leveranser": "md-paper-plane-sharp",
 };
 
 export default function App() {
@@ -26,13 +28,10 @@ export default function App() {
 
     <SafeAreaView style={Base.container}>
 
-
       <NavigationContainer>
-
 
       <Tab.Navigator screenOptions={({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
-
 
       let iconName = routeIcons[route.name] || "alert";
 
@@ -43,8 +42,6 @@ export default function App() {
       })}
     >
 
-
-
       <Tab.Screen name="Lager">
             {() => <Home products={products} setProducts={setProducts} />}
       </Tab.Screen>
@@ -53,9 +50,11 @@ export default function App() {
             {() => <Pick products={products} setProducts={setProducts} />}
       </Tab.Screen>
 
+      <Tab.Screen name="Leveranser">
+            {() => <Deliveries products={products} setProducts={setProducts} />}
+      </Tab.Screen>
 
-
-        </Tab.Navigator>
+      </Tab.Navigator>
 
       </NavigationContainer>
       <StatusBar style="auto" />

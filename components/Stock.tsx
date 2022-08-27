@@ -6,7 +6,9 @@ import productModel from "../models/products"
 
 
 
-function StockList({products, setProducts}) {
+function StockList({route, products, setProducts}) {
+
+
 
 
   useEffect(() => {
@@ -17,20 +19,18 @@ function StockList({products, setProducts}) {
   }, []);
 
   /*
-const { reload } = route.params || false;
+    const { reload } = route.params || false;
 
   if (reload) {
     reloadProductsList();
-}
+  }
 
-async function reloadProductsList() {
-    setProducts(await productModel.getProducts());
-}
+  async function reloadProductsList() {
+      setProducts(await productModel.getProducts());
+  }
+  */
 
-useEffect(() => {
-    reloadProductsList();
-}, []);
-*/
+
 
 
   const list = products.map((product, index) => {
@@ -49,7 +49,7 @@ useEffect(() => {
   );
 }
 
-export default function Stock({products, setProducts}) {
+export default function Stock({route, products, setProducts}) {
   return (
     <View style={Base.container}>
       <Text style={Typo.header3}>Lagerförteckning</Text>
