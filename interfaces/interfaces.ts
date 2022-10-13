@@ -33,12 +33,24 @@ export interface Specifiers {
     diameter: string
 }
 
-
-
 export interface Delivery {
     product_id: number,
     product_name: string,
     amount: number,
     delivery_date: string,
     comment: string,
+}
+
+export default interface Auth {
+    email: string,
+    password: string,
+}
+
+
+export default interface Invoice {
+    order_id: number,
+    total_price: number,
+    creation_date: string,
+    due_date: string,
+
 }

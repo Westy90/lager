@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import config from "../config/config.json";
 import { Base, Typo } from "../styles/index";
 import productModel from "../models/products"
 
+import orderModel from "../models/orders";
 
 
 function StockList({route, products, setProducts}) {
-
-
 
 
   useEffect(() => {
@@ -44,6 +43,13 @@ function StockList({route, products, setProducts}) {
 
   return (
     <View>
+      <Button
+      title="Återställ allt!"
+      onPress={() => {
+          orderModel.resetEverything();
+      }}
+      />
+
       {list}
     </View>
   );

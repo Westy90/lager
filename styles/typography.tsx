@@ -9,19 +9,19 @@ export const header1 = {
 
 export const header2 = {
   color: "#C0392B",
-  fontSize: 36,
+  fontSize: 28,
   marginBottom: 18,
 };
 
 export const header3 = {
   color: "#C0392B",
-  fontSize: 28,
+  fontSize: 24,
   marginBottom: 14,
 };
 
 export const normal = {
   color: '#D35400',
-  fontSize: 20,
+  fontSize: 18,
   marginBottom: 10,
 };
 

@@ -9,6 +9,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Base, Typo } from "./styles/index.js";
 import Deliveries from "./components/Deliveries";
+import Invoices from "./components/invoice/Invoices";
+import Ship from "./components/ship/Ship";
+
+import Auth from "./components/auth/Auth";
+import authModel from "./models/auth";
+
+
 
 
 const Tab = createBottomTabNavigator();
@@ -17,16 +24,35 @@ const Tab = createBottomTabNavigator();
 const routeIcons = {
   "Lager": "home",
   "Plock": "list",
-  "Leveranser": "md-paper-plane-sharp",
+  "Inleverans": "md-paper-plane-sharp",
+  "Leverans": "map-outline"
 };
+
+
+
 
 export default function App() {
 
+
+
+  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
+
+  useEffect(() => {
+    async function logIn() {
+      setIsLoggedIn(await authModel.loggedIn());
+    }
+    logIn();
+  }, []);
+
   const [products, setProducts] = useState([]);
+
+  const [invoices, setInvoices] = useState([]);
 
   return (
 
     <SafeAreaView style={Base.container}>
+
+
 
       <NavigationContainer>
 
@@ -50,9 +76,20 @@ export default function App() {
             {() => <Pick products={products} setProducts={setProducts} />}
       </Tab.Screen>
 
-      <Tab.Screen name="Leveranser">
+      <Tab.Screen name="Inleverans">
             {() => <Deliveries products={products} setProducts={setProducts} />}
       </Tab.Screen>
+
+      <Tab.Screen name="Leverans" component={Ship} />
+
+      {
+        isLoggedIn ?
+        <Tab.Screen name="Faktura" component={Invoices} /> :
+
+        <Tab.Screen name="Logga in">
+          {() => <Auth setIsLoggedIn={setIsLoggedIn} />}
+        </Tab.Screen>
+      }
 
       </Tab.Navigator>
 
@@ -61,4 +98,5 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
 
