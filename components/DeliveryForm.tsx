@@ -7,65 +7,21 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import productModel from "../models/products";
 import deliveryModel from "../models/delivery";
+import {showMessage} from 'react-native-flash-message';
+import DateDropDown from './elements/DateDropDown';
+import ProductDropDown from './elements/ProductDropDown';
+import TextFieldForm from './elements/TextFieldForm';
 
-function DateDropDown(props) {
-    const [dropDownDate, setDropDownDate] = useState<Date>(new Date());
-    const [show, setShow] = useState<Boolean>(false);
 
-    const showDatePicker = () => {
-        setShow(true);
-    };
 
-    return (
-        <View>
-            {Platform.OS === "android" && (
-                <Button onPress={showDatePicker} title="Visa datumväljare" />
-            )}
-            {(show || Platform.OS === "ios") && (
-                <DateTimePicker
-                    onChange={(event, date) => {
-                        setDropDownDate(date);
-
-                        props.setDelivery({
-                            ...props.delivery,
-                            delivery_date: date.toLocaleDateString('se-SV'),
-                        });
-
-                        setShow(false);
-                    }}
-                    value={dropDownDate}
-                />
-            )}
-        </View>
-    )
-}
-
-function ProductDropDown(props) {
-    const [products, setProducts] = useState<Product[]>([]);
-    let productsHash: any = {};
-
-    useEffect(() => {
-        async function fetchData() {
-            setProducts(await productModel.getProducts());
-        }
-        fetchData();
-    }, [])
-
-    const itemsList = products.map((prod, index) => {
-        productsHash[prod.id] = prod;
-        return <Picker.Item key={index} label={prod.name} value={prod.id} />;
-    });
-
-    return (
-        <Picker
-            selectedValue={props.delivery?.product_id}
-            onValueChange={(itemValue) => {
-                props.setDelivery({ ...props.delivery, product_id: itemValue });
-                props.setCurrentProduct(productsHash[itemValue]);
-            }}>
-            {itemsList}
-        </Picker>
-    );
+function validateAmount(amount : number) {
+    if (amount < 1 || amount > 99) {
+            showMessage({
+                message: "Felaktigt värde",
+                description: "Antalet ska vara minst 1-99 ",
+                type: "warning"
+            })
+    }
 }
 
 export default function DeliveriesForm( {navigation }) {
@@ -114,9 +70,11 @@ export default function DeliveriesForm( {navigation }) {
         <TextInput
             style={Forms.input}
             onChangeText = {(content: string) => {
-                console.log("On change:");
+
+                validateAmount(parseInt(content))
                 setDelivery({...delivery, amount: parseInt(content)});
 
+                console.log("On change:");
                 console.log(delivery);
             }}
         value ={delivery?.amount?.toString()}
@@ -125,16 +83,9 @@ export default function DeliveriesForm( {navigation }) {
 
         <Text style={Typo.label}>Kommentar</Text>
 
-        <TextInput
-            style={Forms.input}
-            onChangeText = {(content: string) => {
-                console.log("On change:");
-                setDelivery({...delivery, comment: content});
-
-                console.log(delivery);
-            }}
-
-            value ={delivery?.comment}
+        <TextFieldForm
+            delivery = {delivery}
+            setDelivery = {setDelivery}
         />
 
         <Button

@@ -84,7 +84,7 @@ function OrderDropDown(props) {
     );
 }
 
-export default function DeliveriesForm( {navigation }) {
+export default function InvoiceForm( {navigation }) {
 
     const [invoice, setInvoice] = useState<Partial <Invoice>>({});
     const [currentOrder, setCurrentOrder] = useState<Partial <Order>>({});

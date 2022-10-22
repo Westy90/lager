@@ -4,6 +4,7 @@ import { Auth } from "../../interfaces/index";
 import { useState } from "react";
 import AuthModel from "../../models/auth";
 import AuthFields from "./AuthFields";
+import {showMessage} from 'react-native-flash-message';
 
 
 export default function Login({ navigation, setIsLoggedIn }) {
@@ -14,10 +15,23 @@ export default function Login({ navigation, setIsLoggedIn }) {
         console.log("hej")
         console.log(auth)
         if (auth.email && auth.password) {
-            console.log("hej2")
             const result = await AuthModel.login(auth.email, auth.password);
 
-            setIsLoggedIn(true);
+            if (result.type === "success") {
+                setIsLoggedIn(true);
+            }
+
+
+            showMessage(result);
+
+        } else {
+            console.log("ingen email eller lösenord är ifylld!");
+
+            showMessage({
+                message: "Något saknas",
+                description: "e-post eller lösenord saknas",
+                type: "warning"
+            })
         }
     }
 

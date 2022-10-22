@@ -11,6 +11,7 @@ import { Base, Typo } from "./styles/index.js";
 import Deliveries from "./components/Deliveries";
 import Invoices from "./components/invoice/Invoices";
 import Ship from "./components/ship/Ship";
+import FlashMessage from 'react-native-flash-message';
 
 import Auth from "./components/auth/Auth";
 import authModel from "./models/auth";
@@ -95,6 +96,12 @@ export default function App() {
 
       </NavigationContainer>
       <StatusBar style="auto" />
+
+
+      <FlashMessage 
+      position="top"
+      testID = "flashMessage"
+      />
     </SafeAreaView>
   );
 }
